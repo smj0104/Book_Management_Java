@@ -19,11 +19,11 @@
 	</resultMap>
 	
 	<resultMap type="com.toyproject.bookmanagement.entity.Role" id="roleMap">
-		<id property="roleId" column="role_id"/>
-		<result property="roleName" column="role_name"/>
+		<id property="roleId" column="role_id" />
+		<result property="roleName" column="role_name" />
 	</resultMap>
 	
-	<insert id="saveUser" parameterType="com.toyproject.bookmanagement.entity.User" useGeneratedKeys="true" >
+	<insert id="saveUser" parameterType="com.toyproject.bookmanagement.entity.User" >
 		insert into user_tb
 		values(0, #{email}, #{password}, #{name}, #{provider})
 	</insert>
