@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ErrorMap {
-		
+	
 	private Map<String, String> errorMap;
 	
 	private ErrorMap() {
@@ -23,4 +23,10 @@ public class ErrorMap {
 	public Map<String, String> build() {
 		return errorMap;
 	}
+	
 }
+
+
+
+
+

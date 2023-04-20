@@ -20,3 +20,7 @@ public class User {
 	
 	private List<Authority> authorities;
 }
+
+
+
+

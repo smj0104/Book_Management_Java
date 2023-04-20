@@ -13,23 +13,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() { 
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {  //void라 리턴x http말고 쓸거없음
-		http.csrf().disable();  //반드시 막아둘것(요청 안날아감)
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
 		http.httpBasic().disable();
 		http.formLogin().disable();
 		
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);  //세션 사용 안함
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeRequests()
 			.antMatchers("/auth/**")
-			.permitAll()	//앞에 auth가 붙으면 전부 허용
+			.permitAll()
 			.anyRequest()
 			.authenticated();
 		
 	}
 }
+
+
+
+
+
+
+
+
