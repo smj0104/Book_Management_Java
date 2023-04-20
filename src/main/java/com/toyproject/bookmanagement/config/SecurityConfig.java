@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeRequests()
-			.antMatchers("/auth/**")
+			.antMatchers("/auth/**")///auth/**로 시작은 전부 통과
 			.permitAll()
 			.anyRequest()
 			.authenticated();
