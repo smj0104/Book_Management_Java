@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.toyproject.bookmanagement.dto.auth.JwtRespDto;
 import com.toyproject.bookmanagement.dto.auth.LoginReqDto;
+import com.toyproject.bookmanagement.dto.auth.PrincipalRespDto;
 import com.toyproject.bookmanagement.dto.auth.SignupReqDto;
 import com.toyproject.bookmanagement.entity.Authority;
 import com.toyproject.bookmanagement.entity.User;
@@ -21,6 +22,7 @@ import com.toyproject.bookmanagement.exception.ErrorMap;
 import com.toyproject.bookmanagement.repository.UserRepository;
 import com.toyproject.bookmanagement.security.JwtTokenProvider;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -49,12 +51,12 @@ public class AuthenticationService implements UserDetailsService {
 				.roleId(1)
 				.build());
 	}
-	public JwtRespDto signin(LoginReqDto loginReqDto) {
+	public JwtRespDto signin(LoginReqDto loginReqDto) {	//이메일 패스워드 들고옴
 		
-		UsernamePasswordAuthenticationToken authenticationToken =
+		UsernamePasswordAuthenticationToken authenticationToken =  // authentication token을 만듬
 				new UsernamePasswordAuthenticationToken(loginReqDto.getEmail(), loginReqDto.getPassword()); //manager가 알아볼 수 있게 만듬
 			//loadbyusername 호출함?
-		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken); //manager가 토크을 인증
 		
 		
 		return jwtTokenProvider.generateToken(authentication);
@@ -76,6 +78,17 @@ public class AuthenticationService implements UserDetailsService {
 		return jwtTokenProvider.validateToken(jwtTokenProvider.getToken(accessToken));
 	}
 	
+	public PrincipalRespDto getPrincipal(String accessToken) {		//로그인후 토큰 체크 bearer 자르고 확인
+		Claims claims = jwtTokenProvider.getClaims(jwtTokenProvider.getToken(accessToken));
+		User userEntity = userRepository.findUserByEmail(claims.getSubject());
+		
+		return PrincipalRespDto.builder()
+				.userId(userEntity.getUserId())
+				.email(userEntity.getEmail())
+				.name(userEntity.getName())
+				.authorities((String)claims.get("auth"))  //object라 형변환 필요
+				.build();
+	}
 
 }
 

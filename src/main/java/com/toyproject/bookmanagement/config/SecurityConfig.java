@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/auth/**")///auth/**로 시작은 전부 통과
 			.permitAll()
 			.anyRequest()
-			.authenticated();
+			.permitAll();
+			//.authenticated();
 		
 	}
 }

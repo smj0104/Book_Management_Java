@@ -46,6 +46,11 @@ public class AuthenticationController {
 		 //authenticationService.authenticated(accessToken);  //검사후 true false를 가져옴
 		 return ResponseEntity.ok().body(authenticationService.authenticated(accessToken));
 	 }
+	 
+	 @GetMapping("/principal")
+	 public ResponseEntity<?> principal(String accessToken) {
+		 return ResponseEntity.ok().body(authenticationService.getPrincipal(accessToken)); //authenticationService.getPrincipal(accessToken) = data.data에 해당
+	 }
 }
 
 

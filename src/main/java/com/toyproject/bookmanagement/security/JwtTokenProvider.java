@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.toyproject.bookmanagement.dto.auth.JwtRespDto;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -42,11 +43,11 @@ public class JwtTokenProvider {
 		
 		Date tokenExpiresDate = new Date(new Date().getTime() + (1000 * 60 * 60 * 24));
 		
-		String accessToken = Jwts.builder()  //jwt생성 내용은 없음
+		String accessToken = Jwts.builder()  					//jwt생성 내용은 없음
 				.setSubject(authentication.getName()) 			//토큰의 제목 (email을 여기 넣음)
-				.claim("auth", authorities)				//auth
-				.setExpiration(tokenExpiresDate) 		//토큰의 만료기간
-				.signWith(key, SignatureAlgorithm.HS256)
+				.claim("auth", authorities)						//auth
+				.setExpiration(tokenExpiresDate) 				//토큰의 만료기간
+				.signWith(key, SignatureAlgorithm.HS256)		//토큰 암호화
 				.compact();
 		
 		return JwtRespDto.builder().grantType("Bearer").accessToken(accessToken).build();
@@ -86,5 +87,13 @@ public class JwtTokenProvider {
 		}
 		
 		return null;
+	}
+	
+	public Claims getClaims(String token) { 
+		return Jwts.parserBuilder()
+				.setSigningKey(key)
+				.build()
+				.parseClaimsJws(token)
+				.getBody();
 	}
 }
