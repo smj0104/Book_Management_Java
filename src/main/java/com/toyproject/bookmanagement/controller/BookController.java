@@ -62,4 +62,14 @@ public class BookController {
 	public ResponseEntity<?> getRentalListBookId(@PathVariable int bookId) {
 		return ResponseEntity.ok().body(bookService.getRentalListByBookId(bookId));
 	}
+	
+	@PostMapping("/book/rental/{bookListId}")
+	public ResponseEntity<?> rentalBooks(@PathVariable int bookListId,@RequestBody Map<String, Integer> requestMap) {
+		return ResponseEntity.ok().body(bookService.rentalBooks(bookListId, requestMap.get("userId")));
+	}
+	
+	@DeleteMapping("/book/rental/{bookListId}")
+	public ResponseEntity<?> returnBooks(@PathVariable int bookListId, int userId) {
+		return ResponseEntity.ok().body(bookService.returnBooks(bookListId, userId));
+	}
 }

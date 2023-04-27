@@ -103,4 +103,19 @@ public class BookService {
 		 
 		return list;
 	}
+	public int rentalBooks(int bookListId, int userId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bookListId", bookListId);
+		map.put("userId", userId);
+		
+		return bookRepository.rentalBooks(map);
+	}
+	
+	public int returnBooks(int bookListId, int userId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bookListId", bookListId);
+		map.put("userId", userId);
+		
+		return bookRepository.returnBooks(map);		//자동완성 조심할것
+	}
 }

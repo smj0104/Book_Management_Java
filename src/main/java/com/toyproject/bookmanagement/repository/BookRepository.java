@@ -20,4 +20,6 @@ public interface BookRepository {		//xml에 namespace에 경로 잡아주기
 	public int setLike(Map<String, Object> map);
 	public int disLike(Map<String, Object> map);
 	public List<RentalList> getRentalListByBookId(int bookId);
+	public int rentalBooks(Map<String, Object> map);
+	public int returnBooks(Map<String, Object> map);
 }

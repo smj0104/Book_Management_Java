@@ -20,6 +20,7 @@ public class Book {
 	private int categoryId;
 	private String coverImgUrl;
 	private int likeCount;
+	private int rentalCount;
 	
 	private Author author;
 	private Publisher publisher;
