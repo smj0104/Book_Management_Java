@@ -22,4 +22,5 @@ public interface BookRepository {		//xml에 namespace에 경로 잡아주기
 	public List<RentalList> getRentalListByBookId(int bookId);
 	public int rentalBooks(Map<String, Object> map);
 	public int returnBooks(Map<String, Object> map);
+	public int registeBookList(int bookId);
 }

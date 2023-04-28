@@ -118,4 +118,8 @@ public class BookService {
 		
 		return bookRepository.returnBooks(map);		//자동완성 조심할것
 	}
+	
+	public int registeBookList(int bookId) {
+		return bookRepository.registeBookList(bookId);
+	}
 }
